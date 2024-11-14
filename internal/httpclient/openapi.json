@@ -1,0 +1,5173 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Marketstack OpenAPI",
+    "description": "Inofficial marketstack OpenAPI spec",
+    "version": "1.0"
+  },
+  "paths": {
+    "/eod": {
+      "get": {
+        "tags": [
+          "eod"
+        ],
+        "summary": "Query",
+        "operationId": "eod",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.EodPrice__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eod/latest": {
+      "get": {
+        "tags": [
+          "eod"
+        ],
+        "summary": "Latest",
+        "operationId": "eod_latest",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.EodPrice__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eod/{date}": {
+      "get": {
+        "tags": [
+          "eod"
+        ],
+        "summary": "Date",
+        "operationId": "eod_date",
+        "parameters": [
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": true,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.EodPrice__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intraday": {
+      "get": {
+        "tags": [
+          "intraday"
+        ],
+        "summary": "Query",
+        "operationId": "intraday",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Intraday interval",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Interval"
+                }
+              ]
+            },
+            "example": "5min",
+            "name": "interval",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.IntervalPrice__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intraday/latest": {
+      "get": {
+        "tags": [
+          "intraday"
+        ],
+        "summary": "Latest",
+        "operationId": "intraday_latest",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Intraday interval",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Interval"
+                }
+              ]
+            },
+            "example": "5min",
+            "name": "interval",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.IntervalPrice__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intraday/{date}": {
+      "get": {
+        "tags": [
+          "intraday"
+        ],
+        "summary": "Date",
+        "operationId": "intraday_date",
+        "parameters": [
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": true,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Intraday interval",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Interval"
+                }
+              ]
+            },
+            "example": "5min",
+            "name": "interval",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.IntervalPrice__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/splits": {
+      "get": {
+        "tags": [
+          "splits"
+        ],
+        "summary": "Query",
+        "operationId": "splits",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Split__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dividends": {
+      "get": {
+        "tags": [
+          "dividends"
+        ],
+        "summary": "Query",
+        "operationId": "dividends",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Dividend__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/currencies": {
+      "get": {
+        "tags": [
+          "currencies"
+        ],
+        "summary": "Query",
+        "operationId": "currencies",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Currency__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/timezones": {
+      "get": {
+        "tags": [
+          "timezones"
+        ],
+        "summary": "Query",
+        "operationId": "timezones",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Timezone__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Query",
+        "operationId": "tickers",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Search string",
+              "type": "string"
+            },
+            "name": "search",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Ticker__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol",
+        "operationId": "ticker_symbol",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ticker"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/eod": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Eod",
+        "operationId": "ticker_symbol_eod",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_TickerEod_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/eod/latest": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Eod Latest",
+        "operationId": "ticker_symbol_eod_latest",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EodPrice"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/eod/{date}": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Eod Date",
+        "operationId": "ticker_symbol_eod_date",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": true,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EodPrice"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/intraday": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Intraday",
+        "operationId": "ticker_symbol_intraday",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "exchange",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Intraday interval",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Interval"
+                }
+              ]
+            },
+            "example": "5min",
+            "name": "interval",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_TickerIntraday_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/intraday/latest": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Intraday Latest",
+        "operationId": "ticker_symbol_intraday_latest",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntervalPrice"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/intraday/{date}": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Intraday Date",
+        "operationId": "ticker_symbol_intraday_date",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": true,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.IntervalPrice__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/splits": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Splits",
+        "operationId": "ticker_symbol_splits",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Split__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tickers/{symbol}/dividends": {
+      "get": {
+        "tags": [
+          "tickers"
+        ],
+        "summary": "Symbol Dividends",
+        "operationId": "ticker_symbol_dividends",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Symbol",
+              "type": "string"
+            },
+            "example": "AAPL",
+            "name": "symbol",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Dividend__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Query",
+        "operationId": "exchanges",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Search string",
+              "type": "string"
+            },
+            "name": "search",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_List_models.Exchange__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Mic",
+        "operationId": "exchange_mic",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Exchange"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}/tickers": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Tickers",
+        "operationId": "exchange_mic_tickers",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_ExchangeTickers_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}/eod": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Mic Eod",
+        "operationId": "exchange_mic_eod",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_ExchangeEod_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}/eod/latest": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Mic Eod Latest",
+        "operationId": "exchange_mic_eod_latest",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_ExchangeEod_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}/eod/{date}": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Mic Eod Date",
+        "operationId": "exchange_mic_eod_date",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": true,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_ExchangeEod_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}/intraday": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Mic Intraday",
+        "operationId": "exchange_mic_intraday",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Intraday interval",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Interval"
+                }
+              ]
+            },
+            "example": "5min",
+            "name": "interval",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Date/time sort order",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Sort"
+                }
+              ]
+            },
+            "example": "DESC",
+            "name": "sort",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_from",
+            "in": "query"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": false,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date_to",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "maximum": 1000.0,
+              "minimum": 1.0,
+              "type": "integer"
+            },
+            "example": 10,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Offset",
+              "minimum": 0.0,
+              "type": "integer"
+            },
+            "example": 0,
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_ExchangeIntraday_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}/intraday/latest": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Mic Intraday Latest",
+        "operationId": "exchange_mic_intraday_latest",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_ExchangeIntraday_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exchanges/{mic}/intraday/{date}": {
+      "get": {
+        "tags": [
+          "exchanges"
+        ],
+        "summary": "Mic Intraday Date",
+        "operationId": "exchange_mic_intraday_date",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Exchange MIC",
+              "type": "string"
+            },
+            "example": "XNAS",
+            "name": "mic",
+            "in": "path"
+          },
+          {
+            "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z",
+            "required": true,
+            "schema": {
+              "title": "Timestamp",
+              "type": "string",
+              "description": "Date in the formats %Y-%m-%d, %Y-%m-%d %H:%M:%S or ISO-8601 %Y-%m-%dT%H:%M:%S+%Z"
+            },
+            "example": "2022-01-01T00:00:00+0000",
+            "name": "date",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Comma-separated symbols list",
+              "type": "string"
+            },
+            "example": "AAPL,AMZN",
+            "name": "symbols",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "API access key",
+              "type": "string"
+            },
+            "name": "access_key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResponse_ExchangeIntraday_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Currency": {
+        "title": "Currency",
+        "required": [
+          "code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "symbol_native": {
+            "title": "Symbol Native",
+            "type": "string"
+          }
+        }
+      },
+      "Dividend": {
+        "title": "Dividend",
+        "required": [
+          "date",
+          "symbol",
+          "dividend"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "dividend": {
+            "title": "Dividend",
+            "type": "number"
+          }
+        }
+      },
+      "EodPrice": {
+        "title": "EodPrice",
+        "required": [
+          "date",
+          "symbol",
+          "open",
+          "low",
+          "high",
+          "exchange",
+          "split_factor",
+          "dividend",
+          "adj_open",
+          "adj_close",
+          "adj_high",
+          "adj_low",
+          "adj_volume"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "volume": {
+            "title": "Volume",
+            "type": "number"
+          },
+          "open": {
+            "title": "Open",
+            "type": "number"
+          },
+          "close": {
+            "title": "Close",
+            "type": "number"
+          },
+          "low": {
+            "title": "Low",
+            "type": "number"
+          },
+          "high": {
+            "title": "High",
+            "type": "number"
+          },
+          "exchange": {
+            "title": "Exchange",
+            "type": "string"
+          },
+          "last": {
+            "title": "Last",
+            "type": "number"
+          },
+          "split_factor": {
+            "title": "Split Factor",
+            "type": "number"
+          },
+          "dividend": {
+            "title": "Dividend",
+            "type": "number"
+          },
+          "adj_open": {
+            "title": "Adj Open",
+            "type": "number"
+          },
+          "adj_close": {
+            "title": "Adj Close",
+            "type": "number"
+          },
+          "adj_high": {
+            "title": "Adj High",
+            "type": "number"
+          },
+          "adj_low": {
+            "title": "Adj Low",
+            "type": "number"
+          },
+          "adj_volume": {
+            "title": "Adj Volume",
+            "type": "number"
+          }
+        }
+      },
+      "Error": {
+        "title": "Error",
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "type": "object"
+          }
+        }
+      },
+      "ErrorCode": {
+        "title": "ErrorCode",
+        "enum": [
+          "invalid_access_key",
+          "missing_access_key",
+          "function_access_restricted",
+          "inactive_user",
+          "https_access_restricted",
+          "invalid_api_function",
+          "404_not_found",
+          "not_found_error",
+          "usage_limit_reached",
+          "rate_limit_reached",
+          "internal_error",
+          "validation_error"
+        ],
+        "description": "An enumeration."
+      },
+      "ErrorResponse": {
+        "title": "ErrorResponse",
+        "required": [
+          "error"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error"
+          }
+        }
+      },
+      "Exchange": {
+        "title": "Exchange",
+        "required": [
+          "name",
+          "acronym",
+          "mic",
+          "country",
+          "country_code",
+          "city",
+          "website"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "acronym": {
+            "title": "Acronym",
+            "type": "string"
+          },
+          "mic": {
+            "title": "Mic",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "country_code": {
+            "title": "Country Code",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "website": {
+            "title": "Website",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Currency"
+              },
+              {
+                "$ref": "#/components/schemas/Nullable"
+              }
+            ]
+          },
+          "timezone": {
+            "title": "Timezone",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Timezone"
+              },
+              {
+                "$ref": "#/components/schemas/Nullable"
+              }
+            ]
+          }
+        }
+      },
+      "ExchangeBase": {
+        "title": "ExchangeBase",
+        "required": [
+          "name",
+          "acronym",
+          "mic",
+          "country",
+          "city",
+          "website"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "acronym": {
+            "title": "Acronym",
+            "type": "string"
+          },
+          "mic": {
+            "title": "Mic",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "country_code": {
+            "title": "Country Code",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "website": {
+            "title": "Website",
+            "type": "string"
+          }
+        }
+      },
+      "ExchangeEod": {
+        "title": "ExchangeEod",
+        "required": [
+          "name",
+          "acronym",
+          "mic",
+          "country",
+          "city",
+          "website",
+          "eod"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "acronym": {
+            "title": "Acronym",
+            "type": "string"
+          },
+          "mic": {
+            "title": "Mic",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "country_code": {
+            "title": "Country Code",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "website": {
+            "title": "Website",
+            "type": "string"
+          },
+          "eod": {
+            "title": "Eod",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EodPrice"
+            }
+          }
+        }
+      },
+      "ExchangeIntraday": {
+        "title": "ExchangeIntraday",
+        "required": [
+          "name",
+          "acronym",
+          "mic",
+          "country",
+          "city",
+          "website",
+          "intraday"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "acronym": {
+            "title": "Acronym",
+            "type": "string"
+          },
+          "mic": {
+            "title": "Mic",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "country_code": {
+            "title": "Country Code",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "website": {
+            "title": "Website",
+            "type": "string"
+          },
+          "intraday": {
+            "title": "Intraday",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntervalPrice"
+            }
+          }
+        }
+      },
+      "ExchangeSymbol": {
+        "title": "ExchangeSymbol",
+        "required": [
+          "name",
+          "symbol",
+          "has_intraday",
+          "has_eod"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "has_intraday": {
+            "title": "Has Intraday",
+            "type": "boolean"
+          },
+          "has_eod": {
+            "title": "Has Eod",
+            "type": "boolean"
+          }
+        }
+      },
+      "ExchangeTickers": {
+        "title": "ExchangeTickers",
+        "required": [
+          "name",
+          "acronym",
+          "mic",
+          "country",
+          "city",
+          "website",
+          "tickers"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "acronym": {
+            "title": "Acronym",
+            "type": "string"
+          },
+          "mic": {
+            "title": "Mic",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "country_code": {
+            "title": "Country Code",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "website": {
+            "title": "Website",
+            "type": "string"
+          },
+          "tickers": {
+            "title": "Tickers",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExchangeSymbol"
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "Interval": {
+        "title": "Interval",
+        "enum": [
+          "1min",
+          "5min",
+          "10min",
+          "30min",
+          "1hour",
+          "3hour",
+          "6hour",
+          "12hour",
+          "24hour"
+        ],
+        "description": "An enumeration."
+      },
+      "IntervalPrice": {
+        "title": "IntervalPrice",
+        "required": [
+          "date",
+          "symbol",
+          "open",
+          "low",
+          "high",
+          "exchange"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "volume": {
+            "title": "Volume",
+            "type": "number"
+          },
+          "open": {
+            "title": "Open",
+            "type": "number"
+          },
+          "close": {
+            "title": "Close",
+            "type": "number"
+          },
+          "low": {
+            "title": "Low",
+            "type": "number"
+          },
+          "high": {
+            "title": "High",
+            "type": "number"
+          },
+          "exchange": {
+            "title": "Exchange",
+            "type": "string"
+          },
+          "last": {
+            "title": "Last",
+            "type": "number"
+          }
+        }
+      },
+      "Nullable": {
+        "title": "Nullable",
+        "enum": [
+          null
+        ],
+        "description": "An enumeration."
+      },
+      "PagedResponse_ExchangeEod_": {
+        "title": "PagedResponse[ExchangeEod]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ExchangeEod"
+          }
+        }
+      },
+      "PagedResponse_ExchangeIntraday_": {
+        "title": "PagedResponse[ExchangeIntraday]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ExchangeIntraday"
+          }
+        }
+      },
+      "PagedResponse_ExchangeTickers_": {
+        "title": "PagedResponse[ExchangeTickers]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ExchangeTickers"
+          }
+        }
+      },
+      "PagedResponse_List_models.Currency__": {
+        "title": "PagedResponse[List[models.Currency]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Currency"
+            }
+          }
+        }
+      },
+      "PagedResponse_List_models.Dividend__": {
+        "title": "PagedResponse[List[models.Dividend]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dividend"
+            }
+          }
+        }
+      },
+      "PagedResponse_List_models.EodPrice__": {
+        "title": "PagedResponse[List[models.EodPrice]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EodPrice"
+            }
+          }
+        }
+      },
+      "PagedResponse_List_models.Exchange__": {
+        "title": "PagedResponse[List[models.Exchange]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Exchange"
+            }
+          }
+        }
+      },
+      "PagedResponse_List_models.IntervalPrice__": {
+        "title": "PagedResponse[List[models.IntervalPrice]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntervalPrice"
+            }
+          }
+        }
+      },
+      "PagedResponse_List_models.Split__": {
+        "title": "PagedResponse[List[models.Split]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Split"
+            }
+          }
+        }
+      },
+      "PagedResponse_List_models.Ticker__": {
+        "title": "PagedResponse[List[models.Ticker]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ticker"
+            }
+          }
+        }
+      },
+      "PagedResponse_List_models.Timezone__": {
+        "title": "PagedResponse[List[models.Timezone]]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Timezone"
+            }
+          }
+        }
+      },
+      "PagedResponse_TickerEod_": {
+        "title": "PagedResponse[TickerEod]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TickerEod"
+          }
+        }
+      },
+      "PagedResponse_TickerIntraday_": {
+        "title": "PagedResponse[TickerIntraday]",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TickerIntraday"
+          }
+        }
+      },
+      "Pagination": {
+        "title": "Pagination",
+        "required": [
+          "limit",
+          "offset",
+          "count",
+          "total"
+        ],
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        }
+      },
+      "Sort": {
+        "title": "Sort",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "description": "An enumeration."
+      },
+      "Split": {
+        "title": "Split",
+        "required": [
+          "date",
+          "symbol",
+          "split_factor"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "split_factor": {
+            "title": "Split Factor",
+            "type": "number"
+          }
+        }
+      },
+      "Ticker": {
+        "title": "Ticker",
+        "required": [
+          "name",
+          "symbol",
+          "has_intraday",
+          "has_eod",
+          "country",
+          "stock_exchange"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "has_intraday": {
+            "title": "Has Intraday",
+            "type": "boolean"
+          },
+          "has_eod": {
+            "title": "Has Eod",
+            "type": "boolean"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "stock_exchange": {
+            "$ref": "#/components/schemas/ExchangeBase"
+          }
+        }
+      },
+      "TickerEod": {
+        "title": "TickerEod",
+        "required": [
+          "name",
+          "symbol",
+          "has_intraday",
+          "has_eod",
+          "country",
+          "eod"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "has_intraday": {
+            "title": "Has Intraday",
+            "type": "boolean"
+          },
+          "has_eod": {
+            "title": "Has Eod",
+            "type": "boolean"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "eod": {
+            "title": "Eod",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EodPrice"
+            }
+          }
+        }
+      },
+      "TickerIntraday": {
+        "title": "TickerIntraday",
+        "required": [
+          "name",
+          "symbol",
+          "has_intraday",
+          "has_eod",
+          "country",
+          "intraday"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "symbol": {
+            "title": "Symbol",
+            "type": "string"
+          },
+          "has_intraday": {
+            "title": "Has Intraday",
+            "type": "boolean"
+          },
+          "has_eod": {
+            "title": "Has Eod",
+            "type": "boolean"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "intraday": {
+            "title": "Intraday",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntervalPrice"
+            }
+          }
+        }
+      },
+      "Timezone": {
+        "title": "Timezone",
+        "required": [
+          "timezone",
+          "abbr",
+          "abbr_dst"
+        ],
+        "type": "object",
+        "properties": {
+          "timezone": {
+            "title": "Timezone",
+            "type": "string"
+          },
+          "abbr": {
+            "title": "Abbr",
+            "type": "string"
+          },
+          "abbr_dst": {
+            "title": "Abbr Dst",
+            "type": "string"
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

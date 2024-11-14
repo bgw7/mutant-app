@@ -1,0 +1,24 @@
+version: '2'
+cloud:
+  project: "01HAQMMECEYQYKFJN8MP16QC41"
+sql:
+- name: postgresql
+  schema: ../../internal/db/schema.sql
+  queries: ../../internal/db/query.sql
+  engine: postgresql
+  database:
+    uri: "${VET_TEST_EXAMPLES_POSTGRES_AUTHORS}"
+  analyzer:
+    database: false
+  rules:
+  - sqlc/db-prepare
+  - postgresql-query-too-costly
+  gen:
+    go:
+      package: db
+      sql_package: pgx/v5
+      out: ../../internal/db/
+rules:
+- name: postgresql-query-too-costly
+  message: "Too costly"
+  rule: "postgresql.explain.plan.total_cost > 300.0"

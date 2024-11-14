@@ -5,6 +5,17 @@
 !README.md
 
 
+!*.go
+!go.mod
+!go.sum
+
+!/internal
+!/internal/**
+
+!/tools
+!/tools/config
+!/tools/config/*.yaml
+
 !/.vscode
 !/.vscode/**
 
